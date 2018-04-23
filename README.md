@@ -54,3 +54,7 @@ Type: `Object`
 * `optimize` output optimizde with [svgo](https://github.com/svg/svgo/) (`Boolean`) default: `true`
 * `svgoConfig` _SVGO_ plugins configuration (`Object`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L25-L45)
 * `processIds` way to customize _Icons_ `id`s (`Function`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L10-L23)
+
+## Example
+
+Take a look into [this example](https://github.com/elrumordelaluz/svg-spreact/blob/master/example.js) reading a folder with _Icons_
