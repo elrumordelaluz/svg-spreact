@@ -8,18 +8,39 @@ const readFileAsync = promisify(fs.readFile)
 const readdirAsync = promisify(fs.readdir)
 
 const readFolder = async folder => {
-  let svgString = ''
+  let svgsString = ''
   const files = await readdirAsync(folder)
   const filtered = files.filter(file => extname(file) === '.svg')
+  const filenames = filtered.map(file => file.replace('.svg', ''))
   for (file of filtered) {
     const data = await readFileAsync(resolve(folder, file))
-    svgString = `${svgString}${data.toString()}`
+    svgsString = `${svgsString}${data.toString()}`
   }
-  return Promise.resolve(svgString)
+  return Promise.resolve({ svgsString, filenames })
+}
+
+const doSprite = ({ svgsString, filenames }) => {
+  let n = 0
+  const processIds = node => {
+    if (node.name === 'svg') {
+      const id = filenames[n++]
+      return {
+        ...node,
+        attribs: {
+          ...node.attribs,
+          id,
+        },
+        'data-iconid': id,
+      }
+    }
+    return node
+  }
+
+  return svgSpreact(svgsString, { tidy: true, processIds })
 }
 
 readFolder('./icons')
-  .then(input => svgSpreact(input, { tidy: true }))
+  .then(doSprite)
   .then(({ defs, refs }) => {
     console.log(defs)
     console.log(refs)

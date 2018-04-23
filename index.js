@@ -7,8 +7,7 @@ const Element = require('./createElement')
 const e = React.createElement
 
 let n = 1
-
-const transformNode = node => {
+const processIdsDefault = node => {
   if (node.name === 'svg') {
     const id = `icon_${n++}`
     return {
@@ -23,34 +22,37 @@ const transformNode = node => {
   return node
 }
 
-const svgsonConfig = {
-  optimize: true,
-  camelcase: true,
-  transformNode,
-  svgoConfig: {
-    plugins: [
-      { removeStyleElement: true },
-      { removeScriptElement: true },
-      { removeViewBox: false },
-      {
-        removeAttrs: {
-          attrs: [
-            '(class|style)',
-            'svg:width',
-            'svg:height',
-            'aria-labelledby',
-            'aria-describedby',
-            'xmlns:xlink',
-            'data-name',
-          ],
-        },
+const svgoDefaultConfig = {
+  plugins: [
+    { removeStyleElement: true },
+    { removeScriptElement: true },
+    { removeViewBox: false },
+    {
+      removeAttrs: {
+        attrs: [
+          '(class|style)',
+          'svg:width',
+          'svg:height',
+          'aria-labelledby',
+          'aria-describedby',
+          'xmlns:xlink',
+          'data-name',
+        ],
       },
-    ],
-    multipass: true,
-  },
+    },
+  ],
+  multipass: true,
 }
 
-const processWithSvgson = data => svgson(data, svgsonConfig)
+const processWithSvgson = (data, { optimize, svgoConfig, processIds }) => {
+  const svgsonConfig = {
+    optimize,
+    camelcase: true,
+    transformNode: processIds,
+    svgoConfig,
+  }
+  return svgson(data, svgsonConfig)
+}
 const replaceTag = icon => ({ ...icon, name: 'symbol' })
 const createIcon = (obj, key) => e(Element, { obj, key })
 const createSprite = icons => {
@@ -74,6 +76,16 @@ const generateSprite = (result, tidy) => {
   }
 }
 
-module.exports = (input, { tidy = true }) => {
-  return processWithSvgson(input).then(res => generateSprite(res, tidy))
+module.exports = (
+  input,
+  {
+    tidy = false,
+    optimize = true,
+    svgoConfig = svgoDefaultConfig,
+    processIds = processIdsDefault,
+  }
+) => {
+  return processWithSvgson(input, { optimize, svgoConfig, processIds }).then(
+    res => generateSprite(res, tidy)
+  )
 }
