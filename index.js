@@ -23,7 +23,7 @@ const transformNode = node => {
   return node
 }
 
-const svgsonCongig = {
+const svgsonConfig = {
   optimize: true,
   camelcase: true,
   transformNode,
@@ -50,7 +50,7 @@ const svgsonCongig = {
   },
 }
 
-const processWithSvgson = data => svgson(data, svgsonCongig)
+const processWithSvgson = data => svgson(data, svgsonConfig)
 const replaceTag = icon => ({ ...icon, name: 'symbol' })
 const createIcon = (obj, key) => e(Element, { obj, key })
 const createSprite = icons => {
