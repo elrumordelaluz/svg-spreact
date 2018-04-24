@@ -58,3 +58,7 @@ Type: `Object`
 ## Example
 
 Take a look into [this example](https://github.com/elrumordelaluz/svg-spreact/blob/master/example.js) reading a folder with _Icons_
+
+## Related
+
+[svg-spreact-cli](https://github.com/elrumordelaluz/svg-spreact-cli) CLI version
