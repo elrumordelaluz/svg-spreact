@@ -3,12 +3,26 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/elrumordelaluz/svg-spreact.git",
-  "author": "Lionel T <elrumordelaluz@hotmail.com> (https://elrumordelaluz.com/)",
+  "author":
+    "Lionel T <elrumordelaluz@hotmail.com> (https://elrumordelaluz.com/)",
   "license": "MIT",
   "dependencies": {
     "pretty": "2.0.0",
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "svgson-next": "2.2.2"
+  },
+  "devDependencies": {
+    "ava": "0.25.0"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "files": ["index.js"],
+  "xo": {
+    "esnext": true
   }
 }

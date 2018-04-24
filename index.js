@@ -83,7 +83,7 @@ module.exports = (
     optimize = true,
     svgoConfig = svgoDefaultConfig,
     transformNode = transformNodeDefault,
-  }
+  } = {}
 ) => {
   return processWithSvgson(input, { optimize, svgoConfig, transformNode }).then(
     res => generateSprite(res, tidy)
