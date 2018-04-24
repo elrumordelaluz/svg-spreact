@@ -1,10 +1,10 @@
-# svg-spreact
+<p align="center">
+  <img alt="SVG Spreact" title="SVG Spreact" src="/logo.svg" width="450">
+</p>
 
 <p align="center">
   Create an <em>SVG Sprites</em> using <a href="https://github.com/elrumordelaluz/svgson-next">svgson</a> and <a href="https://reactjs.org/">react</a>
 </p>
-
-🚧 just a draft idea
 
 ## Install
 
