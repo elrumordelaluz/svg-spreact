@@ -15,7 +15,7 @@ yarn add svg-spreact
 ## Usage
 
 ```
-const doSprite = require('svg-spreact')
+const svgSpreact = require('svg-spreact')
 
 const icons = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -32,7 +32,7 @@ const icons = `
 </svg>
 `
 
-doSprite(icons).then(({ defs, refs }) => {
+svgSpreact(icons).then(({ defs, refs }) => {
   console.log(defs) // <symbol>
   console.log(refs) // <use>
 })
@@ -40,7 +40,7 @@ doSprite(icons).then(({ defs, refs }) => {
 
 ## API
 
-doSprite(input, [options])
+svgSpreact(input, [options])
 
 #### input
 
@@ -53,7 +53,7 @@ Type: `Object`
 * `tidy` output prettyfied (`Boolean`) default: `true`
 * `optimize` output optimizde with [svgo](https://github.com/svg/svgo/) (`Boolean`) default: `true`
 * `svgoConfig` _SVGO_ plugins configuration (`Object`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L25-L45)
-* `transformNode` way to customize each `svg` node, useful for _Icons_ `id`s i.e (`Function`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L10-L23)
+* `processId` function for customize _Icons_ `id`s (`Function`) default: `(n) => 'Icon_' + n`
 
 ## Example
 

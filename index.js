@@ -6,22 +6,6 @@ const Element = require('./createElement')
 
 const e = React.createElement
 
-let n = 1
-const transformNodeDefault = node => {
-  if (node.name === 'svg') {
-    const id = `icon_${n++}`
-    return {
-      ...node,
-      attribs: {
-        ...node.attribs,
-        id,
-      },
-      'data-iconid': id,
-    }
-  }
-  return node
-}
-
 const svgoDefaultConfig = {
   plugins: [
     { removeStyleElement: true },
@@ -82,9 +66,24 @@ module.exports = (
     tidy = false,
     optimize = true,
     svgoConfig = svgoDefaultConfig,
-    transformNode = transformNodeDefault,
+    processId = n => `Icon_${n}`,
   } = {}
 ) => {
+  let n = 0
+  const transformNode = node => {
+    if (node.name === 'svg') {
+      const id = processId(n++)
+      return {
+        ...node,
+        attribs: {
+          ...node.attribs,
+          id,
+        },
+        'data-iconid': id,
+      }
+    }
+    return node
+  }
   return processWithSvgson(input, { optimize, svgoConfig, transformNode }).then(
     res => generateSprite(res, tidy)
   )

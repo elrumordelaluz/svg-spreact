@@ -20,23 +20,8 @@ const readFolder = async folder => {
 }
 
 const doSprite = ({ svgsString, filenames }) => {
-  let n = 0
-  const processIds = node => {
-    if (node.name === 'svg') {
-      const id = filenames[n++]
-      return {
-        ...node,
-        attribs: {
-          ...node.attribs,
-          id,
-        },
-        'data-iconid': id,
-      }
-    }
-    return node
-  }
-
-  return svgSpreact(svgsString, { tidy: true, processIds })
+  const processId = n => `___icon___${filenames[n]}`
+  return svgSpreact(svgsString, { tidy: true, processId })
 }
 
 readFolder('./icons')
