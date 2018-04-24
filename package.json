@@ -1,10 +1,9 @@
 {
   "name": "svg-spreact",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "repository": "https://github.com/elrumordelaluz/svg-spreact.git",
-  "author":
-    "Lionel T <elrumordelaluz@hotmail.com> (https://elrumordelaluz.com/)",
+  "author": "Lionel T <elrumordelaluz@hotmail.com> (https://elrumordelaluz.com/)",
   "license": "MIT",
   "dependencies": {
     "pretty": "2.0.0",
@@ -21,7 +20,9 @@
   "scripts": {
     "test": "ava"
   },
-  "files": ["index.js"],
+  "files": [
+    "index.js"
+  ],
   "xo": {
     "esnext": true
   }
