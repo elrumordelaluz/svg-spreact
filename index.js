@@ -43,12 +43,18 @@ const createSprite = icons => {
   return e('svg', { width: 0, height: 0, className: 'hidden' }, icons)
 }
 const getId = obj => obj['data-iconid']
-const createRef = id => e('svg', {}, e('use', { xlinkHref: `#${id}` }))
+const createRef = (id, className) => {
+  return e(
+    'svg',
+    { className: className !== '' ? className : null },
+    e('use', { xlinkHref: `#${id}` })
+  )
+}
 const markup = elem => renderToStaticMarkup(elem)
 
-const generateSprite = (result, tidy) => {
+const generateSprite = (result, { tidy, className }) => {
   const icons = result.map(replaceTag).map(createIcon)
-  const refs = result.map(getId).map(createRef)
+  const refs = result.map(getId).map(id => createRef(id, className))
   const sprite = createSprite(icons)
   const spriteOutput = markup(sprite)
   const refsOutput = markup(refs)
@@ -67,6 +73,7 @@ module.exports = (
     optimize = true,
     svgoConfig = svgoDefaultConfig,
     processId = n => `Icon_${n}`,
+    className = '',
   } = {}
 ) => {
   let n = 0
@@ -85,6 +92,6 @@ module.exports = (
     return node
   }
   return processWithSvgson(input, { optimize, svgoConfig, transformNode }).then(
-    res => generateSprite(res, tidy)
+    res => generateSprite(res, { tidy, className })
   )
 }
