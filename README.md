@@ -53,7 +53,7 @@ Type: `Object`
 * `tidy` output prettyfied (`Boolean`) default: `true`
 * `optimize` output optimizde with [svgo](https://github.com/svg/svgo/) (`Boolean`) default: `true`
 * `svgoConfig` _SVGO_ plugins configuration (`Object`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L25-L45)
-* `processIds` way to customize _Icons_ `id`s (`Function`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L10-L23)
+* `transformNode` way to customize each `svg` node, useful for _Icons_ `id`s i.e (`Function`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L10-L23)
 
 ## Example
 
