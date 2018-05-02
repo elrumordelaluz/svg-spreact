@@ -1,10 +1,8 @@
 const svgson = require('svgson-next').default
 const { renderToStaticMarkup } = require('react-dom/server')
-const React = require('react')
+const { createElement: e } = require('react')
 const pretty = require('pretty')
 const Element = require('./createElement')
-
-const e = React.createElement
 
 const svgoDefaultConfig = {
   plugins: [
