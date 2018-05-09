@@ -18,8 +18,8 @@ const src = `
 </svg>
 `
 
-const expectedDefs = `<svg width="0" height="0" class="hidden"><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" id="icon_1"><path fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M32 16v32m16-16H16" stroke-linejoin="round" stroke-linecap="round"></path></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" id="icon_2"><path fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M16 33l11 11 21-22" stroke-linejoin="round" stroke-linecap="round"></path></symbol></svg>`
-const expectedRefs = `<svg><use xlink:href="#icon_1"></use></svg><svg><use xlink:href="#icon_2"></use></svg>`
+const expectedDefs = `<svg width="0" height="0" class="hidden"><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" id="Icon_0"><path fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M32 16v32m16-16H16" stroke-linejoin="round" stroke-linecap="round"></path></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" id="Icon_1"><path fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M16 33l11 11 21-22" stroke-linejoin="round" stroke-linecap="round"></path></symbol></svg>`
+const expectedRefs = `<svg><use xlink:href="#Icon_0"></use></svg><svg><use xlink:href="#Icon_1"></use></svg>`
 
 test('Create SVG Sprite from string', async t => {
   const { defs, refs } = await doSprite(src)
