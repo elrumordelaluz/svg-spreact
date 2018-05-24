@@ -51,8 +51,13 @@ const createRef = (id, className) => {
 const markup = elem => renderToStaticMarkup(elem)
 
 const generateSprite = (result, { tidy, className }) => {
-  const icons = result.map(replaceTag).map(createIcon)
-  const refs = result.map(getId).map(id => createRef(id, className))
+  const multiResult = Array.isArray(result)
+  const icons = multiResult
+    ? result.map(replaceTag).map(createIcon)
+    : createIcon(replaceTag(result))
+  const refs = multiResult
+    ? result.map(getId).map(id => createRef(id, className))
+    : createRef(getId(result), className)
   const sprite = createSprite(icons)
   const spriteOutput = markup(sprite)
   const refsOutput = markup(refs)
@@ -80,8 +85,8 @@ module.exports = (
       const id = processId(n++)
       return {
         ...node,
-        attribs: {
-          ...node.attribs,
+        attributes: {
+          ...node.attributes,
           id,
         },
         'data-iconid': id,

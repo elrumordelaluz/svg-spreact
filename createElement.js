@@ -7,7 +7,7 @@ const doElem = (obj, index) => {
     const { children } = obj
     childnodes = Array.isArray(children)
       ? children.map((node, index) => {
-          if (node.type === 'tag') {
+          if (node.type === 'element') {
             return doElem(node, index)
           } else if (node.type == 'text') {
             return node.data
@@ -18,7 +18,7 @@ const doElem = (obj, index) => {
 
   return createElement(
     obj.name,
-    { ...obj.attribs, key: index ? index : null },
+    { ...obj.attributes, key: index ? index : null },
     childnodes
   )
 }
