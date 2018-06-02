@@ -26,6 +26,10 @@ const svgoDefaultConfig = {
   multipass: true,
 }
 
+const optimizeSVG = (input, config) => {
+  return new svgo(config).optimize(input).then(({ data }) => data)
+}
+
 const processWithSvgson = (data, { optimize, svgoConfig, transformNode }) => {
   const svgsonConfig = {
     optimize,

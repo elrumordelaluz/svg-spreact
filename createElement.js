@@ -10,7 +10,7 @@ const doElem = (obj, index) => {
           if (node.type === 'element') {
             return doElem(node, index)
           } else if (node.type == 'text') {
-            return node.data
+            return node.value
           }
         })
       : children
