@@ -17,20 +17,20 @@ yarn add svg-spreact
 ```
 const svgSpreact = require('svg-spreact')
 
-const icons = `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>Add</title>
-  <path data-name="layer1"
-  fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M32 16v32m16-16H16"
-  stroke-linejoin="round" stroke-linecap="round"></path>
-</svg>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>Checkmark</title>
-  <path data-name="layer1"
-  fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M16 33l11 11 21-22"
-  stroke-linejoin="round" stroke-linecap="round"></path>
-</svg>
-`
+const icons = [
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Add</title>
+    <path data-name="layer1"
+    fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M32 16v32m16-16H16"
+    stroke-linejoin="round" stroke-linecap="round"></path>
+  </svg>`,
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Checkmark</title>
+    <path data-name="layer1"
+    fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M16 33l11 11 21-22"
+    stroke-linejoin="round" stroke-linecap="round"></path>
+  </svg>`
+]
 
 svgSpreact(icons).then(({ defs, refs }) => {
   console.log(defs) // <symbol>
@@ -50,11 +50,11 @@ Type: `Array`
 
 Type: `Object`
 
-- `tidy` output prettyfied (`Boolean`) default: `true`
-- `optimize` output optimizde with [svgo](https://github.com/svg/svgo/) (`Boolean`) default: `true`
-- `svgoConfig` _SVGO_ plugins configuration (`Object`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L25-L45)
-- `processId` function for customize _Icons_ `id`s (`Function`) default: `(n) => 'Icon_' + n`
-- `className` classname/s to add on each `<use>` element (`String`) default: ''
+* `tidy` output prettyfied (`Boolean`) default: `true`
+* `optimize` output optimizde with [svgo](https://github.com/svg/svgo/) (`Boolean`) default: `true`
+* `svgoConfig` _SVGO_ plugins configuration (`Object`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L25-L45)
+* `processId` function for customize _Icons_ `id`s (`Function`) default: `(n) => 'Icon_' + n`
+* `className` classname/s to add on each `<use>` element (`String`) default: ''
 
 ## Example
 
