@@ -9,6 +9,7 @@
     "pretty": "2.0.0",
     "react": "16.3.2",
     "react-dom": "16.3.2",
+    "svgo": "1.0.5",
     "svgson-next": "4.0.0"
   },
   "devDependencies": {

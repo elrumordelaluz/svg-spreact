@@ -44,17 +44,17 @@ svgSpreact(input, [options])
 
 #### input
 
-Type: `string`
+Type: `Array`
 
 #### options
 
 Type: `Object`
 
-* `tidy` output prettyfied (`Boolean`) default: `true`
-* `optimize` output optimizde with [svgo](https://github.com/svg/svgo/) (`Boolean`) default: `true`
-* `svgoConfig` _SVGO_ plugins configuration (`Object`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L25-L45)
-* `processId` function for customize _Icons_ `id`s (`Function`) default: `(n) => 'Icon_' + n`
-* `className` classname/s to add on each `<use>` element (`String`) default: ''
+- `tidy` output prettyfied (`Boolean`) default: `true`
+- `optimize` output optimizde with [svgo](https://github.com/svg/svgo/) (`Boolean`) default: `true`
+- `svgoConfig` _SVGO_ plugins configuration (`Object`) [default](https://github.com/elrumordelaluz/svg-spreact/blob/master/index.js#L25-L45)
+- `processId` function for customize _Icons_ `id`s (`Function`) default: `(n) => 'Icon_' + n`
+- `className` classname/s to add on each `<use>` element (`String`) default: ''
 
 ## Example
 

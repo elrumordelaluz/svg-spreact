@@ -3,12 +3,14 @@ const { renderToStaticMarkup } = require('react-dom/server')
 const { createElement: e } = require('react')
 const pretty = require('pretty')
 const Element = require('./createElement')
+const svgo = require('svgo')
 
 const svgoDefaultConfig = {
   plugins: [
     { removeStyleElement: true },
     { removeScriptElement: true },
     { removeViewBox: false },
+    { removeTitle: false },
     {
       removeAttrs: {
         attrs: [
@@ -73,7 +75,7 @@ const generateSprite = (result, { tidy, className }) => {
   }
 }
 
-module.exports = (
+module.exports = async (
   input,
   {
     tidy = false,
@@ -98,7 +100,26 @@ module.exports = (
     }
     return node
   }
-  return processWithSvgson(input, { optimize, svgoConfig, transformNode }).then(
-    res => generateSprite(res, { tidy, className })
-  )
+
+  let icons
+  let optimized = []
+  if (optimize) {
+    try {
+      for (const icon of input) {
+        const iconOpt = await optimizeSVG(icon, svgoConfig)
+        optimized.push(iconOpt)
+      }
+      icons = optimized
+    } catch (err) {}
+  } else {
+    icons = input
+  }
+
+  icons = icons.join(' ')
+
+  const processed = await processWithSvgson(icons, {
+    transformNode,
+  })
+
+  return await generateSprite(processed, { tidy, className })
 }
