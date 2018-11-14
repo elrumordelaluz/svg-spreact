@@ -1,4 +1,4 @@
-const svgson = require('svgson-next').default
+const svgson = require('svgson').default
 const { renderToStaticMarkup } = require('react-dom/server')
 const { createElement: e } = require('react')
 const pretty = require('pretty')
