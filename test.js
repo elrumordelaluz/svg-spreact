@@ -1,7 +1,5 @@
-import test from 'ava'
-import path from 'path'
-import fs from 'fs'
-import doSprite from './'
+const test = require('ava')
+const doSprite = require('./')
 
 const src_multi = [
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -36,13 +34,13 @@ const expected_refs_multi = `<svg><use xlink:href="#Icon_0"></use></svg><svg><us
 const expected_defs_single = `<svg width="0" height="0" class="hidden"><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" id="Icon_0"><title>Add</title><path fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M32 16v32m16-16H16" stroke-linejoin="round" stroke-linecap="round"></path></symbol></svg>`
 const expected_refs_single = `<svg><use xlink:href="#Icon_0"></use></svg>`
 
-test('Create SVG Sprite from string of multiple SVGs', async t => {
+test('Create SVG Sprite from string of multiple SVGs', async (t) => {
   const { defs, refs } = await doSprite(src_multi)
   t.is(defs, expected_defs_multi)
   t.is(refs, expected_refs_multi)
 })
 
-test('Create SVG Sprite from string of single SVG', async t => {
+test('Create SVG Sprite from string of single SVG', async (t) => {
   const { defs, refs } = await doSprite(src_single)
   t.is(defs, expected_defs_single)
   t.is(refs, expected_refs_single)

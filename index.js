@@ -15,8 +15,8 @@ const svgoDefaultConfig = {
       removeAttrs: {
         attrs: [
           '(class|style)',
-          'svg:width',
-          'svg:height',
+          // 'svg:width',
+          // 'svg:height',
           'aria-labelledby',
           'aria-describedby',
           'xmlns:xlink',
@@ -41,12 +41,12 @@ const processWithSvgson = (data, { optimize, svgoConfig, transformNode }) => {
   }
   return svgson(data, svgsonConfig)
 }
-const replaceTag = icon => ({ ...icon, name: 'symbol' })
+const replaceTag = (icon) => ({ ...icon, name: 'symbol' })
 const createIcon = (obj, key) => e(Element, { obj, key })
-const createSprite = icons => {
+const createSprite = (icons) => {
   return e('svg', { width: 0, height: 0, className: 'hidden' }, icons)
 }
-const getId = obj => obj['data-iconid']
+const getId = (obj) => obj['data-iconid']
 const createRef = (id, className) => {
   return e(
     'svg',
@@ -54,7 +54,7 @@ const createRef = (id, className) => {
     e('use', { xlinkHref: `#${id}` })
   )
 }
-const markup = elem => renderToStaticMarkup(elem)
+const markup = (elem) => renderToStaticMarkup(elem)
 
 const generateSprite = (result, { tidy, className }) => {
   const multiResult = Array.isArray(result)
@@ -62,7 +62,7 @@ const generateSprite = (result, { tidy, className }) => {
     ? result.map(replaceTag).map(createIcon)
     : createIcon(replaceTag(result))
   const refs = multiResult
-    ? result.map(getId).map(id => createRef(id, className))
+    ? result.map(getId).map((id) => createRef(id, className))
     : createRef(getId(result), className)
   const sprite = createSprite(icons)
   const spriteOutput = markup(sprite)
@@ -81,18 +81,21 @@ module.exports = async (
     tidy = false,
     optimize = true,
     svgoConfig = svgoDefaultConfig,
-    processId = n => `Icon_${n}`,
+    processId = (n) => `Icon_${n}`,
     className = '',
   } = {}
 ) => {
   let n = 0
-  const transformNode = node => {
+  const transformNode = (node) => {
     if (node.name === 'svg') {
       const id = processId(n++)
+      const { viewBox, width, height, ...extra } = node.attributes
+      let defViewBox = viewBox || `0 0 ${width} ${height}`
       return {
         ...node,
         attributes: {
-          ...node.attributes,
+          ...extra,
+          viewBox: defViewBox,
           id,
         },
         'data-iconid': id,
@@ -101,7 +104,7 @@ module.exports = async (
     return node
   }
 
-  let icons
+  let icons = []
   let optimized = []
   if (optimize) {
     try {
