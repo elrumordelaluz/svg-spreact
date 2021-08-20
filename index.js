@@ -1,22 +1,22 @@
-const svgson = require('svgson').default
+const { parse } = require('svgson')
 const { renderToStaticMarkup } = require('react-dom/server')
 const { createElement: e } = require('react')
 const pretty = require('pretty')
 const Element = require('./createElement')
-const svgo = require('svgo')
+const { optimize: optimizeSVG } = require('svgo')
 
 const svgoDefaultConfig = {
   plugins: [
-    { removeStyleElement: true },
-    { removeScriptElement: true },
-    { removeViewBox: false },
-    { removeTitle: false },
+    { name: 'removeStyleElement', active: true },
+    { name: 'removeScriptElement', active: true },
+    { name: 'removeViewBox', active: false },
+    { name: 'removeTitle', active: false },
     {
-      removeAttrs: {
+      name: 'removeAttrs',
+      params: {
         attrs: [
           '(class|style)',
-          // 'svg:width',
-          // 'svg:height',
+          'xlink:href',
           'aria-labelledby',
           'aria-describedby',
           'xmlns:xlink',
@@ -28,10 +28,6 @@ const svgoDefaultConfig = {
   multipass: true,
 }
 
-const optimizeSVG = (input, config) => {
-  return new svgo(config).optimize(input).then(({ data }) => data)
-}
-
 const processWithSvgson = (data, { optimize, svgoConfig, transformNode }) => {
   const svgsonConfig = {
     optimize,
@@ -39,7 +35,7 @@ const processWithSvgson = (data, { optimize, svgoConfig, transformNode }) => {
     transformNode,
     svgoConfig,
   }
-  return svgson(data, svgsonConfig)
+  return parse(data, svgsonConfig)
 }
 const replaceTag = (icon) => ({ ...icon, name: 'symbol' })
 const createIcon = (obj, key) => e(Element, { obj, key })
@@ -86,22 +82,27 @@ module.exports = async (
   } = {}
 ) => {
   let n = 0
+
   const transformNode = (node) => {
-    if (node.name === 'svg') {
-      const id = processId(n++)
-      const { viewBox, width, height, ...extra } = node.attributes
-      let defViewBox = viewBox || `0 0 ${width} ${height}`
-      return {
-        ...node,
-        attributes: {
-          ...extra,
-          viewBox: defViewBox,
-          id,
-        },
-        'data-iconid': id,
+    if (Array.isArray(node)) {
+      return node.map(transformNode)
+    } else {
+      if (node.name === 'svg') {
+        const id = processId(n++)
+        const { viewBox, width, height, ...extra } = node.attributes
+        let defViewBox = viewBox || `0 0 ${width} ${height}`
+        return {
+          ...node,
+          attributes: {
+            ...extra,
+            viewBox: defViewBox,
+            id,
+          },
+          'data-iconid': id,
+        }
       }
+      return node
     }
-    return node
   }
 
   let icons = []
@@ -109,11 +110,13 @@ module.exports = async (
   if (optimize) {
     try {
       for (const icon of input) {
-        const iconOpt = await optimizeSVG(icon, svgoConfig)
-        optimized.push(iconOpt)
+        const iconOpt = optimizeSVG(icon, svgoConfig)
+        optimized.push(iconOpt.data)
       }
       icons = optimized
-    } catch (err) {}
+    } catch (err) {
+      // console.log({ err })
+    }
   } else {
     icons = input
   }

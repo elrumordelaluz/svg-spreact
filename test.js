@@ -2,13 +2,13 @@ const test = require('ava')
 const doSprite = require('./')
 
 const src_multi = [
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink">
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <title>Add</title>
   <path data-name="layer1"
   fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M32 16v32m16-16H16"
   stroke-linejoin="round" stroke-linecap="round"></path>
 </svg>`,
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink">
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <title>Checkmark</title>
   <path data-name="layer1"
   fill="none" stroke="#202020" stroke-miterlimit="10" stroke-width="2" d="M16 33l11 11 21-22"
