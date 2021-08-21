@@ -28,15 +28,6 @@ const svgoDefaultConfig = {
   multipass: true,
 }
 
-const processWithSvgson = (data, { optimize, svgoConfig, transformNode }) => {
-  const svgsonConfig = {
-    optimize,
-    camelcase: true,
-    transformNode,
-    svgoConfig,
-  }
-  return parse(data, svgsonConfig)
-}
 const replaceTag = (icon) => ({ ...icon, name: 'symbol' })
 const createIcon = (obj, key) => e(Element, { obj, key })
 const createSprite = (icons) => {
@@ -123,9 +114,7 @@ module.exports = async (
 
   icons = icons.join(' ')
 
-  const processed = await processWithSvgson(icons, {
-    transformNode,
-  })
+  const processed = await parse(icons, { transformNode, camelcase: true })
 
-  return await generateSprite(processed, { tidy, className })
+  return generateSprite(processed, { tidy, className })
 }
