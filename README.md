@@ -66,4 +66,4 @@ Take a look into [this example](https://github.com/elrumordelaluz/svg-spreact/bl
 
 [web-app](https://svgsprit.es)
 
-`[POST]` [endpoint](https://micro-svg-spreact.now.sh/) | [docs](https://github.com/elrumordelaluz/micro-svg-spreact)
+`[POST]` [endpoint](https://svgsprit.es/api) | [docs](https://github.com/elrumordelaluz/micro-svg-spreact)
