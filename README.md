@@ -64,6 +64,6 @@ Take a look into [this example](https://github.com/elrumordelaluz/svg-spreact/bl
 
 [svg-spreact-cli](https://github.com/elrumordelaluz/svg-spreact-cli) CLI version
 
-[web-app](https://elrumordelaluz.github.io/micro-svg-spreact/)
+[web-app](https://svgsprit.es)
 
 `[POST]` [endpoint](https://micro-svg-spreact.now.sh/) | [docs](https://github.com/elrumordelaluz/micro-svg-spreact)
